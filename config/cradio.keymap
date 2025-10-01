@@ -61,8 +61,8 @@
         //│ DELETE   │  4         │  5         │  6         │     -      │       │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
             &kp DEL   NUMF(N4, F4) NUMF(N5, F5) NUMF(N6, F6)   &kp MINUS           &kp LEFT   &kp DOWN   &kp UP   &kp RIGHT   &kp SEMI
         //├──────────┼────────────┼────────────┼────────────┼────────────┤       ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ CAPS     │  7         │  8         │  9         │  0         │       │          │    F11   │    F12   │          │          │
-          &caps_word  NUMF(N7, F7) NUMF(N8, F8) NUMF(N9, F9) NUMF(N0, F10)           &trans   &kp F11     &kp F12     &trans    &trans
+        //│          │  7         │  8         │  9         │  0         │       │          │    F11   │    F12   │          │          │
+            &trans    NUMF(N7, F7) NUMF(N8, F8) NUMF(N9, F9) NUMF(N0, F10)           &trans   &kp F11     &kp F12     &trans    &trans
         //╰──────────┴────────────┴────────────┼────────────┼────────────┤       ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                                &trans       &kp ESC              &trans     &trans
         //                                     ╰────────────┴────────────╯       ╰──────────┴──────────╯
