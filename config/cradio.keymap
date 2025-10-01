@@ -50,7 +50,7 @@
             HRML(A,        S,         D,         F)     &kp G          &kp H      HRMR(J,        K,         L,        SQT)
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │ / ?      │
-            &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH
+            &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp SLASH
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                            &lt LEFT TAB &kp LSHIFT    &kp SPACE  &lt RIGHT BSPC
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
@@ -60,18 +60,18 @@
         right_layer {
             display-name = "Right Layer";
             bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ INSERT   │  1       │  2       │  3       │      +   │   │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
-          &kp INS  NUMF(N1, F1) NUMF(N2, F2) NUMF(N3, F3) &kp PLUS    &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp COLON
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ DELETE   │  4       │  5       │  6       │     -    │   │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
-            &kp DEL  NUMF(N4, F4) NUMF(N5, F5) NUMF(N6, F6) &kp MINUS  &kp LEFT   &kp DOWN   &kp UP   &kp RIGHT   &kp SEMI
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ CAPS     │  7       │  8       │  9       │  0       │   │          │    F11   │    F12   │          │   ENTER  │
-          &caps_word NUMF(N7, F7) NUMF(N8, F8) NUMF(N9, F9) NUMF(N0, F10) &trans   &kp F11     &kp F12   &trans    &kp ENTER
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp ESC        &trans     &trans
-        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
+        //╭──────────┬────────────┬────────────┬────────────┬────────────╮       ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│ INSERT   │  1         │  2         │  3         │      +     │       │ HOME     │ PAGE DN  │ PAGE UP  │ END      │  :       │
+            &kp INS   NUMF(N1, F1) NUMF(N2, F2) NUMF(N3, F3)   &kp PLUS            &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &kp COLON
+        //├──────────┼────────────┼────────────┼────────────┼────────────┤       ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│ DELETE   │  4         │  5         │  6         │     -      │       │ LEFT     │ DOWN     │ UP       │ RIGHT    │  ;       │
+            &kp DEL   NUMF(N4, F4) NUMF(N5, F5) NUMF(N6, F6)   &kp MINUS           &kp LEFT   &kp DOWN   &kp UP   &kp RIGHT   &kp SEMI
+        //├──────────┼────────────┼────────────┼────────────┼────────────┤       ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│ CAPS     │  7         │  8         │  9         │  0         │       │          │    F11   │    F12   │          │   ENTER  │
+          &caps_word  NUMF(N7, F7) NUMF(N8, F8) NUMF(N9, F9) NUMF(N0, F10)           &trans   &kp F11     &kp F12   &trans    &kp ENTER
+        //╰──────────┴────────────┴────────────┼────────────┼────────────┤       ├──────────┼──────────┼──────────┴──────────┴──────────╯
+                                               &trans       &kp ESC              &trans     &trans
+        //                                     ╰────────────┴────────────╯       ╰──────────┴──────────╯
             >;
         };
 
@@ -97,14 +97,14 @@
             display-name = "Tri Layer";
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ RESET    │          │          │          │PROFILE 0 │   │          │          │          │          │  RESET   │
-           &sys_reset  &trans     &trans     &trans    &bt BT_SEL 0    &trans     &trans     &trans     &trans    &sys_reset
+        //│ RESET    │          │          │          │          │   │          │          │          │          │  RESET   │
+           &sys_reset  &trans     &kb F1     &kb F2      &kb F3         &kb F4     &kb F5     &kb F6    &trans    &sys_reset
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│BOOTLOADER│          │          │          │PROFILE 1 │   │          │          │          │          │BOOTLOADER│
-          &bootloader  &trans     &trans     &trans    &bt BT_SEL 1    &trans     &trans     &trans     &trans    &bootloader
+        //│BOOTLOADER│          │          │          │          │   │          │          │          │          │BOOTLOADER│
+          &bootloader  &trans     &kb F7     &kb F8     &kb F9         &kb F10     &kb F11   &kb F12     &trans   &bootloader
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │ CLEAR BT │PROFILE 2 │   │          │          │          │          │          │
-            &trans     &trans     &trans    &bt BT_CLR &bt BT_SEL 2    &trans     &trans     &trans     &trans     &trans
+        //│ PROFILE0 │ PROFILE1 │ PROFILE2 │ CLEAR BT │          │   │          │          │          │          │          │
+           &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &trans    &trans     &trans     &trans     &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
                                              &trans     &trans         &trans     &trans
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
