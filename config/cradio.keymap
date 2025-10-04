@@ -19,8 +19,6 @@
 #define KEYS_L 0 1 2 3 4 10 11 12 13 14 20 21 22 23 24
 #define KEYS_R 5 6 7 8 9 15 16 17 18 19 25 26 27 28 29
 #define THUMBS 30 31 32 33
-// Кнопка lctr - SYMBOL слой
-#define CTRLS(k1) &ht LCTRL k1
 
 &sk {
     release-after-ms = <600>;
@@ -46,6 +44,18 @@
             quick-tap-ms = <150>;
             require-prior-idle-ms = <100>;
             bindings = <&kp>, <&kp>;
+        };
+
+        // Behavior для LCTRL
+        modtap_symbol_lctrl: mod-tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MOD_TAP_SYMBOL_LCTRL";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <125>;
+            bindings = <&mo SYMBOL>, <&kp LCTRL>;
         };
 
         // Left hand home row mods
@@ -160,7 +170,7 @@
     };
 
 
-    keymap {
+    keymap {                    
         compatible = "zmk,keymap";
 
         base_layer {
@@ -186,8 +196,8 @@
         
             &kp Q   &kp W         &kp E          &kp R              &kp T            &kp Y        &kp U          &kp I           &kp O         &kp P
             &kp A   &hml LALT S   &hml LCTRL D   &hml LGUI F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &kp SEMI
-            &kp Z   &mt LC(X) X   &mt LC(C) C    &mt LC(V) V        &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
-                                             &ht LCTRL(SYMBOL)      &mt LSHFT RET    &kp SPACE    &lt NUMBER BSPC
+            &kp Z   &kp X         &kp C          &kp V              &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
+                                             &modtap_symbol_lctrl   &mt LSHFT RET    &kp SPACE    &lt NUMBER BSPC
 
             >;
         };
@@ -219,7 +229,7 @@
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮                              ╭──────────┬──────────┬──────────┬──────────┬──────────╮
         //│ TAB      │  1       │  2       │  3       │    +     │                              │ HOME     │ PG_DN    │ PG_UP    │ END      │ CTRL+=   │
         //├──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ GUI      │  4       │  5       │  6       │    -     │                              │ LEFT     │ DOWN     │  UP      |  RIGHT   │ CTRL+-   │
+        //│ DELETE   │  4       │  5       │  6       │    -     │                              │ LEFT     │ DOWN     │  UP      |  RIGHT   │ CTRL+-   │
         //├──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│          │  7       │  8       │  9       │    0     │                              │     .    │     ,    │          │          │          │
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┴──────────┴──────────╯
@@ -227,7 +237,7 @@
         //                                 ╰──────────┴──────────╯                              ╰──────────┴──────────╯        
 
             &kp TAB     &kp N1            &kp N2            &kp N3           &kp PLUS            &kp HOME         &kp PG_DN         &kp PG_UP         &kp END             &kp LC(EQUAL)
-            &kp LGUI    &hml_s LALT N4    &hml_s LSHFT N5   &hml_s LCTRL N6  &kp MINUS           &kp LEFT         &hmr RGUI DOWN    &hmr_s RCTRL UP   &hmr_s RALT RIGHT   &kp LC(MINUS)
+            &kp DEL     &hml_s LALT N4    &hml_s LSHFT N5   &hml_s LCTRL N6  &kp MINUS           &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT           &kp LC(MINUS)
             &none       &kp N7            &kp N8            &kp N9           &kp N0              &kp DOT          &kp COMMA         &none             &none               &none
                                                             &trans           &trans              &trans           &none
         
@@ -257,7 +267,7 @@
 
         
         // TODO: сделать 2 слоя для игр 
-        //game_layer {
+        //game_layer {S
         //    display-name = "Game";
         //    bindings = <
         //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮               ╭──────────┬──────────┬──────────┬──────────┬──────────╮
