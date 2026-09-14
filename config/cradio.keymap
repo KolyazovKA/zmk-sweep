@@ -1,6 +1,4 @@
-// Версия 2.0 
-// В основе данной раскладки лежит раскладка от Дмитрия Ковалева
-// Ссылка на раскладку: https://github.com/devpew/charybdis-3-6-dongle-prospector-studio.git
+// Версия 3.0 
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -11,8 +9,6 @@
 #define SYMBOL 1
 #define NUMBER 2
 #define FUNCTION 3
-//s #define GAME 4
-//#define EXTGAME 5
 
 
 // Key position definitions for Ferris Sweep (34 keys)
@@ -21,300 +17,292 @@
 #define THUMBS 30 31 32 33
 
 &sk {
-    release-after-ms = <600>;
-    quick-release;
+  release-after-ms = <1000>;
+  quick-release;
 };
 
 &sl {
-    ignore-modifiers;
+  ignore-modifiers;
 };
 
 &caps_word {
-    /delete-property/ ignore-modifiers;
+  /delete-property/ ignore-modifiers;
 };
 
 / {
-    behaviors {
-        // Hot-tap
-        ht: hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <220>;
-            quick-tap-ms = <150>;
-            require-prior-idle-ms = <100>;
-            bindings = <&kp>, <&kp>;
-        };
-
-        // Behavior для LCTRL
-        // crtlsymb: mod-tap {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     label = "MOD_TAP_SYMBOL_LCTRL";
-        //     #binding-cells = <2>;
-        //     flavor = "balanced";
-        //     tapping-term-ms = <200>;
-        //     quick-tap-ms = <150>;
-        //     require-prior-idle-ms = <125>;
-        //     bindings = <&sl SYMBOL>, <&kp LCTRL>;
-        // };
-
-        // Left hand home row mods
-        hml: hml {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
-        };
-
-        // Right hand home row mods
-        hmr: hmr {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <KEYS_L THUMBS>;
-            hold-trigger-on-release;
-        };
-
-        // Left hand home row mods for number layer (no idle requirement)
-        hml_s: hml_s {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <0>;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <KEYS_R THUMBS>;
-            hold-trigger-on-release;
-        };
-
-        // Right hand home row mods for number layer (no idle requirement)
-        hmr_s: hmr_s {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <0>;
-            bindings = <&kp>, <&kp>;
-            hold-trigger-key-positions = <KEYS_L THUMBS>;
-            hold-trigger-on-release;
-        };
-
-        // Smart shift: tap for sticky shift, double tap for caps word
-        smart_shift: smart_shift {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&sk LSHIFT>, <&caps_word>;
-            mods = <(MOD_LSFT)>;
-        };
+  behaviors {
+    // Зажатие - &kp, нажатие - &sl
+    sl_ctrl: sticky_layer_ctrl {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "hold-preferred";
+      tapping-term-ms = <200>;
+      bindings = <&kp>, <&sl>;
     };
 
-    combos {
-        compatible = "zmk,combos";
-        timeout-ms = <50>;
-        require-prior-idle-ms = <150>;
-
-        // ESC on W+E
-        combo_esc {
-            key-positions = <1 2>;
-            bindings = <&kp ESCAPE>;
-        };
-
-        // TAB on E+R
-        combo_tab {
-            key-positions = <2 3>;
-            bindings = <&kp TAB>;
-        };
-
-        // Enter on F+D
-        combo_enter {
-            key-positions = <12 13>;
-            bindings = <&kp RET>;
-        };
-
-        // CTRL+Backspace on S+D
-        combo_ctrl_bspc {
-            key-positions = <11 12>;
-            bindings = <&kp LC(BSPC)>;
-        };
-
-        // Function layer on M + ,
-        combo_fn {
-            key-positions = <27 28>;
-            bindings = <&sl FUNCTION>;
-        };
-
-        // Bootloader on inner thumb keys (hold 2s)
-        combo_bootloader {
-            key-positions = <31 32>;
-            bindings = <&bootloader>;
-            timeout-ms = <100>;
-            require-prior-idle-ms = <2000>;
-        };
-
-        // Разблокировка для zmk studio
-        // combo_unlock {
-        //     key-positions = <0 4>;
-        //     bindings = <&studio_unlock>;
-        // };
-
-        combo_normal {
-            key-positions = <7 8>;
-            bindings = <&to BASE>;
-        };
-
+    // Hot-tap
+    ht: hold_tap {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "tap-preferred";
+      tapping-term-ms = <220>;
+      quick-tap-ms = <150>;
+      require-prior-idle-ms = <100>;
+      bindings = <&kp>, <&kp>;
     };
 
-
-    keymap {                    
-        compatible = "zmk,keymap";
-
-        base_layer {
-            display-name = "Base";
-            bindings = <
-        //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮               ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //   │  Q       │  W       │  E       │  R       │  T       │               │  Y       │  U       │  I       │  O       │  P       │
-        //   ├──────────┼──────────┼──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //   │  A       │  S(LALT) │  D(LCTRL)│  F(LGUI) │  G       │               │  H       │  J(RGUI) │  K(RCTRL)│  L(RALT) │ ;(RSHIFT)│
-        //   ├──────────┼──────────┼──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //   │  Z       │  X       │  C       │  V       │  B       │               │  N       │  M       │ ,        │ .        │ /        │
-        //   ╰──────────┴──────────┴──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┴──────────┴──────────╯
-        //                                    |  LCTRL Э |  LSHIFT Х|               |  SPACE   |   BSPC   |   
-        //                                    |          |          |               |  &SYMBOL | &NUMBER  |
-        //                                    ╰──────────┴──────────╯               ╰──────────┴──────────╯
-
-        
-            &kp Q   &kp W         &kp E          &kp R              &lt FUNCTION T   &kp Y        &kp U          &kp I           &kp O         &kp P
-            &kp A   &hml LALT S   &hml LCTRL D   &hml LGUI F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &hmr RSHIFT SEMI
-            &kp Z   &kp X         &kp C          &kp V              &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
-                                            &mt LCTRL SQT    &mt LSHFT LBKT      &lt SYMBOL SPACE    &lt NUMBER BSPC
-
-            >;
-        };
-
-        symbol_layer {
-            display-name = "Symbol";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ ENTER    │          │  {       │  }       │  |       │   │  `       │  ~       │  <       │  >       │  \       │
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│LS(ENTER) │          │  (       │  )       │  :       │   │  +       │  -       │  /       │  *       │  '       │
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │  [       │  ]       │  ?       │   │  &       │  _       │  =       │  .       │  "       │
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯  
-        //                                 |          |          |   |   (*)    |          |
-        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
-
-            &kp RET      &none     &kp LBRC   &kp RBRC   &kp PIPE       &kp GRAVE  &kp TILDE  &kp LT     &kp GT     &kp BSLH
-            &kp LS(RET)  &none     &kp LPAR   &kp RPAR   &kp COLON      &kp PLUS   &kp MINUS  &kp FSLH   &kp ASTRK  &kp SQT
-            &none        &none     &kp LBKT   &kp RBKT   &kp QMARK      &kp AMPS   &kp UNDER  &kp EQUAL  &kp DOT    &kp DQT        
-                                            &trans     &trans         &kp RET    &trans
-            >;
-        };
-
-        number_layer {
-            display-name = "Number";
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮                              ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ TAB      │  1       │  2       │  3       │    +     │                              │ HOME     │ PG_DN    │ PG_UP    │ END      │SHIFT+INS │
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│ DELETE   │  4       │  5       │  6       │    -     │                              │ LEFT     │ DOWN     │  UP      |  RIGHT   │ CTRL+INS │
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │  7       │  8       │  9       │    0     │                              │          │     .    │     ,    │   BSPC   │          │
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┴──────────┴──────────╯
-        //                                 |  LCTRL   |  LSHIFT  |                              |          |    (*)   |                                                                                                   
-        //                                 ╰──────────┴──────────╯                              ╰──────────┴──────────╯        
-
-            &kp TAB     &kp N1            &kp N2            &kp N3           &kp PLUS            &kp HOME         &kp PG_DN         &kp PG_UP         &kp END             &kp LS(INS)
-            &kp DEL     &hml_s LALT N4    &hml_s LSHFT N5   &hml_s LCTRL N6  &kp MINUS           &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT           &kp LC(INS)
-            &none       &kp N7            &kp N8            &kp N9           &kp N0              &none            &kp DOT           &kp COMMA         &kp BSPC            &none
-                                                            &trans           &trans              &trans           &none
-        
-            >;
-        };
-
-        function_layer {
-            display-name = "Function";
-            bindings = <
-
-
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮       ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│ RESET    │  F1      │  F2      │  F3      │   (*)    │       │          │ F4       │ F5       │ F6       │ RESET    │
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤       ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│BOOTLOADER│  F7      │  F8      │  F9      │          │       │          │ F10      │  F11     |  F12     │BOOTLOADER│
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤       ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│          │          │          │          │          │       │          │ PROFILE0 │ PROFILE1 │ PROFILE2 │ CLEAR BT │
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤       ├──────────┼──────────┼──────────┴──────────┴──────────╯
-        //                                 |          |          |       |  LSHIFT  |          |                                                                                                   
-        //                                 ╰──────────┴──────────╯       ╰──────────┴──────────╯ 
-          
-           &sys_reset   &kp F1     &kp F2     &kp F3     &none            &none       &kp F4        &kp F5        &kp F6        &sys_reset
-           &bootloader  &kp F7     &kp F8     &kp F9     &none            &none       &kp F10       &kp F11       &kp F12       &bootloader
-           &trans       &trans     &trans     &trans     &trans           &trans      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR
-                                              &trans     &trans           &kp LSHIFT  &trans
-            >;
-        };
-
-        
-        // TODO: сделать 2 слоя для игр 
-        //game_layer {S
-        //    display-name = "Game";
-        //    bindings = <
-        //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮               ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //   │  TAB     |  Q       │  W       │  E       │  R       │               │          │  U       │  I       │  O       │  P       │
-        //   ├──────────┼──────────┼──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //   │  SHIFT   |  A       │  S       │  D       │  F       │               │  H       │  J(RGUI) │  K(RCTRL)│  L(RALT) │ ;        │
-        //   ├──────────┼──────────┼──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //   │  LCTRL   |  Z       │  X       │  C       │  M       │               │  N       │  M       │ ,        │ .        │ /        │
-        //   ╰──────────┴──────────┴──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┴──────────┴──────────╯
-        //                                    |  G       |  SPACE   |               |  SPACE   |   BSPC   |   
-        //                                    |  &SYMBOL |          |               |          | &NUMBER  |
-        //                                    ╰──────────┴──────────╯               ╰──────────┴──────────╯
-        //
-        //    &kp Q   &kp W         &kp E          &kp R              &kp T            &kp Y        &kp U          &kp I           &kp O         &kp P
-        //    &kp A   &hml LALT S   &hml LCTRL D   &hml LGUI F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &kp SEMI
-        //    &kp Z   &mt LC(X) X   &mt LC(C) C    &mt LC(V) V        &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
-        //                                         &mo SYMBOL LCTRL   &kp LSHIFT       &kp SPACE    &lt NUMBER BSPC
-        //
-        //    >;
-        //};
-
-        // TODO: сделать слой для ручки
-        // TODO: Основные требования:
-        // TODO:    1. Клавиши: пробел (нажатие), ...
-        // TODO:
-        // TODO:
-        // TODO:
-        //game_layer {S
-        //    display-name = "Game";
-        //    bindings = <
-        //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮               ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //   │  TAB     |  Q       │  W       │  E       │  R       │               │          │  U       │  I       │  O       │  P       │
-        //   ├──────────┼──────────┼──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //   │  SHIFT   |  A       │  S       │  D       │  F       │               │  H       │  J(RGUI) │  K(RCTRL)│  L(RALT) │ ;        │
-        //   ├──────────┼──────────┼──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //   │  LCTRL   |  Z       │  X       │  C       │  M       │               │  N       │  M       │ ,        │ .        │ /        │
-        //   ╰──────────┴──────────┴──────────┼──────────┼──────────┤               ├──────────┼──────────┼──────────┴──────────┴──────────╯
-        //                                    |  G       |  SPACE   |               |  SPACE   |   BSPC   |   
-        //                                    |  &SYMBOL |          |               |          | &NUMBER  |
-        //                                    ╰──────────┴──────────╯               ╰──────────┴──────────╯
-        //
-        //    &kp Q   &kp W         &kp E          &kp R              &kp T            &kp Y        &kp U          &kp I           &kp O         &kp P
-        //    &kp A   &hml LALT S   &hml LCTRL D   &hml LGUI F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &kp SEMI
-        //    &kp Z   &mt LC(X) X   &mt LC(C) C    &mt LC(V) V        &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
-        //                                         &mo SYMBOL LCTRL   &kp LSHIFT       &kp SPACE    &lt NUMBER BSPC
-        //
-        //    >;
-        //};
+    // Left hand home row mods
+    hml: hml {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <280>;
+      quick-tap-ms = <175>;
+      require-prior-idle-ms = <150>;
+      bindings = <&kp>, <&kp>;
+      hold-trigger-key-positions = <KEYS_R THUMBS>;
+      hold-trigger-on-release;
     };
+
+    // Right hand home row mods
+    hmr: hmr {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <280>;
+      quick-tap-ms = <175>;
+      require-prior-idle-ms = <150>;
+      bindings = <&kp>, <&kp>;
+      hold-trigger-key-positions = <KEYS_L THUMBS>;
+      hold-trigger-on-release;
+    };
+
+    // Left hand home row mods for number layer (no idle requirement)
+    hml_s: hml_s {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <280>;
+      quick-tap-ms = <175>;
+      require-prior-idle-ms = <0>;
+      bindings = <&kp>, <&kp>;
+      hold-trigger-key-positions = <KEYS_R THUMBS>;
+      hold-trigger-on-release;
+    };
+
+    // Right hand home row mods for number layer (no idle requirement)
+    hmr_s: hmr_s {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      tapping-term-ms = <280>;
+      quick-tap-ms = <175>;
+      require-prior-idle-ms = <0>;
+      bindings = <&kp>, <&kp>;
+      hold-trigger-key-positions = <KEYS_L THUMBS>;
+      hold-trigger-on-release;
+    };
+
+    // Smart shift: tap for sticky shift, double tap for caps word
+    smart_shift: smart_shift {
+      compatible = "zmk,behavior-tap-dance";
+      #binding-cells = <0>;
+      tapping-term-ms = <250>;
+      bindings = <&sk LSHIFT>, <&caps_word>;
+    };
+  };
+
+  macros {
+    // Copy in nvim
+    vim_copy: vim_copy {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+        = <&kp DQT>
+        , <&kp PLUS>
+        , <&kp Y>
+        ;
+    };
+
+    // Past in nvim
+    vim_paste: vim_paste {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings
+        = <&kp DQT>
+        , <&kp PLUS>
+        , <&kp P>
+        ;
+    };
+  };
+
+  combos {
+    compatible = "zmk,combos";
+    timeout-ms = <50>;
+    require-prior-idle-ms = <150>;
+
+    // ESC on W+E
+    combo_esc {
+      key-positions = <1 2>;
+      layers = <BASE>;
+      bindings = <&kp ESCAPE>;
+    };
+
+    // TAB on E+R
+    combo_tab {
+      key-positions = <2 3>;
+      layers = <BASE>;
+      bindings = <&kp TAB>;
+    };
+
+    // CTRL+Backspace on S+D
+    combo_ctrl_bspc {
+      key-positions = <11 12>;
+      layers = <BASE>;
+      bindings = <&kp LC(BSPC)>;
+    };
+
+    // Enter on F+D
+    combo_enter {
+      key-positions = <12 13>;
+      layers = <BASE>;
+      bindings = <&kp RET>;
+    };
+
+    // "{" on U+I
+    combo_left_curly_bracket {
+      key-positions = <6 7>;
+      layers = <BASE>;
+      bindings = <&kp LBRC>;
+    };
+
+    // "}" on I+O
+    combo_right_curly_bracket {
+      key-positions = <7 8>;
+      layers = <BASE>;
+      bindings = <&kp RBRC>;
+    };
+
+    // "(" on J+K
+    combo_left_bracket {
+      key-positions = <16 17>;
+      layers = <BASE>;
+      bindings = <&kp LPAR>;
+    };
+
+    // ")" on K+L
+    combo_right_bracket {
+      key-positions = <17 18>;
+      layers = <BASE>;
+      bindings = <&kp RPAR>;
+    };
+
+    // "[" on M+,
+    combo_left_square_bracket {
+      key-positions = <26 27>;
+      layers = <BASE>;
+      bindings = <&kp LBKT>;
+    };
+
+    // "]" on ,+.
+    combo_right_square_bracket {
+      key-positions = <27 28>;
+      layers = <BASE>;
+      bindings = <&kp RBKT>;
+    };
+  };
+
+// BASE LAYER
+//   ╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+//   │  Q       │  W       │  E       │  R       │  T       │   │  Y       │  U       │  I       │  O       │  P       │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │  A       │  S(LALT) │  D(LCTRL)│  F(LGUI) │  G       │   │  H       │  J(RGUI) │  K(RCTRL)│  L(RALT) │ ;(RSHIFT)│
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ ,        │ .        │ /        │
+//   ╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
+//                                    │ LSHIFT   │    BSPC  │   │  SPACE   │  LCTRL   │
+//                                    │ CAPSLOCK │  &NUMBER │   │          │&sl SYMBOL│
+//                                    ╰──────────┴──────────╯   ╰──────────┴──────────╯
+//
+// =================================================================================================================================
+//
+// SYMBOL LAYER
+//   ╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+//   │         │'"'+'+'+'y'│  {       │  }       │  │       │   │  `       │  ~       │  <       │  >       │  \       │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │LS(ENTER)│'"'+'+'+'p'│  (       │  )       │  :       │   │  +       │  -       │  /       │  *       │  '       │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │          │          │  [       │  ]       │  ?       │   │  &       │  _       │  =       │  .       │  "       │
+//   ╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
+//                                    │  LCTRL   │          │   │          │  (*)     │
+//                                    ╰──────────┴──────────╯   ╰──────────┴──────────╯
+//
+// =================================================================================================================================
+//
+// NUMBER LAYER
+//   ╭──────────┬──────────┬──────────┬──────────┬──────────╮  ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+//   │ TAB      │  1       │  2       │  3       │    +     │  │ HOME     │ PG_DN    │ PG_UP    │ END      │SHIFT+INS │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │ DELETE   │  4       │  5       │  6       │    -     │  │ LEFT     │ DOWN     │  UP      │  RIGHT   │ CTRL+INS │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │          │  7       │  8       │  9       │    0     │  │          │     .    │     ,    │          │   BSPC   │
+//   ╰──────────┴──────────┴──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┴──────────┴──────────╯
+//                                    │          │          │  │          │          │
+//                                    ╰──────────┴──────────╯  ╰──────────┴──────────╯
+//
+// =================================================================================================================================
+//
+// FUNCTION LAYER
+//   ╭──────────┬──────────┬──────────┬──────────┬──────────╮  ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+//   │          │  F1      │  F2      │  F3      │   (*)    │  │   (*)    │ F4       │ F5       │ F6       │          │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │          │  F7      │  F8      │  F9      │          │  │          │ F10      │  F11     │  F12     │          │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │ RESET    │BOOTLOADER│          │          │          │  │          │ PROFILE0 │ PROFILE1 │ PROFILE2 │ CLEAR BT │
+//   ╰──────────┴──────────┴──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┴──────────┴──────────╯
+//                                    │          │          │  │ RESET    │BOOTLOADER│
+//                                    ╰──────────┴──────────╯  ╰──────────┴──────────╯
+  keymap {
+    compatible = "zmk,keymap";
+    base_layer {
+      display-name = "Base";
+      bindings = <
+        &kp Q   &kp W         &kp E          &kp R              &lt FUNCTION T   &lt FUNCTION Y        &kp U          &kp I           &kp O         &kp P
+        &kp A   &hml LALT S   &hml LCTRL D   &hml LGUI F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &hmr RSHIFT SEMI
+        &kp Z   &kp X         &kp C          &kp V              &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
+        &smart_shift      &lt NUMBER BSPC   &kp SPACE   &sl_ctrl LCTRL SYMBOL
+      >;
+    };
+
+    symbol_layer {
+      display-name = "Symbol";
+      bindings = <
+
+        &kp RET      &vim_copy &kp LBRC   &kp RBRC   &kp PIPE       &kp GRAVE  &kp TILDE  &kp LT     &kp GT     &kp BSLH
+        &kp LS(RET)  &vim_paste     &kp LPAR   &kp RPAR   &kp COLON      &kp PLUS   &kp MINUS  &kp FSLH   &kp ASTRK  &kp SQT
+        &none        &none     &kp LBKT   &kp RBKT   &kp QMARK      &kp AMPS   &kp UNDER  &kp EQUAL  &kp DOT    &kp DQT
+        &trans     &trans         &kp RET    &trans
+      >;
+    };
+
+    number_layer {
+      display-name = "Number";
+      bindings = <
+        &kp TAB     &kp N1            &kp N2            &kp N3           &kp PLUS            &kp HOME         &kp PG_DN         &kp PG_UP         &kp END             &kp LS(INS)
+        &kp DEL     &hml_s LALT N4    &hml_s LSHFT N5   &hml_s LCTRL N6  &kp MINUS           &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT           &kp LC(INS)
+        &none       &kp N7            &kp N8            &kp N9           &kp N0              &none            &kp DOT           &kp COMMA         &kp BSPC            &none
+        &trans           &trans              &trans           &none
+      >;
+    };
+
+    function_layer {
+      display-name = "Function";
+      bindings = <
+        &trans  &kp F1     &kp F2     &kp F3     &none            &none       &kp F4        &kp F5        &kp F6        &trans
+        &trans  &kp F7     &kp F8     &kp F9     &none            &none       &kp F10       &kp F11       &kp F12       &trans
+        &sys_reset       &bootloader     &trans     &trans     &trans           &trans      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR
+        &trans     &trans           &sys_reset       &bootloader
+      >;
+    };
+  };
 };
