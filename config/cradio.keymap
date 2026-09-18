@@ -9,6 +9,7 @@
 #define SYMBOL 1
 #define NUMBER 2
 #define FUNCTION 3
+#define WINDOWS 4
 
 
 // Key position definitions for Ferris Sweep (34 keys)
@@ -109,6 +110,16 @@
       #binding-cells = <0>;
       tapping-term-ms = <250>;
       bindings = <&sk LSHIFT>, <&caps_word>;
+    };
+
+    // Windows layer kye
+    lt_win: lt_win {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "hold-preferred";
+      tapping-term-ms = <200>;
+      quick-tap-ms = <175>;
+      bindings = <&mo>, <&kp>;
     };
   };
 
@@ -213,10 +224,11 @@
   };
 
 // BASE LAYER
+// Desc: Alfabet (main) layer
 //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
 //   │  Q       │  W       │  E       │  R       │  T       │   │  Y       │  U       │  I       │  O       │  P       │
 //   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-//   │  A       │  S(LALT) │  D(LCTRL)│  F(LGUI) │  G       │   │  H       │  J(RGUI) │  K(RCTRL)│  L(RALT) │ ;(RSHIFT)│
+//   │  A       │  S(LALT) │  D(LCTRL)│  F($WIN) │  G       │   │  H       │  J(RGUI) │  K(RCTRL)│  L(RALT) │ ;(RSHIFT)│
 //   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
 //   │  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ ,        │ .        │ /        │
 //   ╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
@@ -227,10 +239,11 @@
 // =================================================================================================================================
 //
 // SYMBOL LAYER
+// Desc:  All special characters layer
 //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-//   │         │'"'+'+'+'y'│  {       │  }       │  │       │   │  `       │  ~       │  <       │  >       │  \       │
+//   │          │          │  {       │  }       │  |       │   │  `       │  ~       │  <       │  >       │  \       │
 //   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-//   │LS(ENTER)│'"'+'+'+'p'│  (       │  )       │  :       │   │  +       │  -       │  /       │  *       │  '       │
+//   │LS(ENTER) │          │  (       │  )       │  :       │   │  +       │  -       │  /       │  *       │  '       │
 //   ├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
 //   │          │          │  [       │  ]       │  ?       │   │  &       │  _       │  =       │  .       │  "       │
 //   ╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
@@ -240,6 +253,8 @@
 // =================================================================================================================================
 //
 // NUMBER LAYER
+// Desc: All numbeers and navigation
+//
 //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮  ╭──────────┬──────────┬──────────┬──────────┬──────────╮
 //   │ TAB      │  1       │  2       │  3       │    +     │  │ HOME     │ PG_DN    │ PG_UP    │ END      │SHIFT+INS │
 //   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
@@ -253,6 +268,8 @@
 // =================================================================================================================================
 //
 // FUNCTION LAYER
+// Desc: A layer with function keys and keyboard control keys.
+//
 //   ╭──────────┬──────────┬──────────┬──────────┬──────────╮  ╭──────────┬──────────┬──────────┬──────────┬──────────╮
 //   │          │  F1      │  F2      │  F3      │   (*)    │  │   (*)    │ F4       │ F5       │ F6       │          │
 //   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
@@ -262,13 +279,28 @@
 //   ╰──────────┴──────────┴──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┴──────────┴──────────╯
 //                                    │          │          │  │ RESET    │BOOTLOADER│
 //                                    ╰──────────┴──────────╯  ╰──────────┴──────────╯
+//
+// =================================================================================================================================
+//
+// WINDOWS LAYER
+// Desc: A layer with win macros
+//   ╭──────────┬──────────┬──────────┬──────────┬──────────╮  ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+//   │  Win+L   │          │ Explorer │ Win+R    │          │  │          │          │  Win+I   │          │  Win+L   │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │          │ '"+p'    │  '"+y'   │   (*)    │          │  │W+Ctrl+<- │W+Shift+<-│W+Shift+->│ W+Ctrl+->│ Emogie   │
+//   ├──────────┼──────────┼──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┼──────────┼──────────┤
+//   │          │          │          │          │          │  │          │          │          │          │          │
+//   ╰──────────┴──────────┴──────────┼──────────┼──────────┤  ├──────────┼──────────┼──────────┴──────────┴──────────╯
+//                                    │          │          │  │  SPACE   │          │
+//                                    ╰──────────┴──────────╯  ╰──────────┴──────────╯
+//
   keymap {
     compatible = "zmk,keymap";
     base_layer {
       display-name = "Base";
       bindings = <
         &kp Q   &kp W         &kp E          &kp R              &lt FUNCTION T   &lt FUNCTION Y        &kp U          &kp I           &kp O         &kp P
-        &kp A   &hml LALT S   &hml LCTRL D   &hml LGUI F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &hmr RSHIFT SEMI
+        &kp A   &hml LALT S   &hml LCTRL D   &lt_win WINDOWS F        &kp G            &kp H        &hmr RGUI J    &hmr RCTRL  K   &hmr RALT L   &hmr RSHIFT SEMI
         &kp Z   &kp X         &kp C          &kp V              &kp B            &kp N        &kp M          &kp COMMA       &kp DOT       &kp FSLH
         &kp LCTRL    &lt NUMBER BSPC    &lt SYMBOL SPACE     &smart_shift
       >;
@@ -278,10 +310,10 @@
       display-name = "Symbol";
       bindings = <
 
-        &kp RET      &vim_copy &kp LBRC   &kp RBRC   &kp PIPE       &kp GRAVE  &kp TILDE  &kp LT     &kp GT     &kp BSLH
-        &kp LS(RET)  &vim_paste     &kp LPAR   &kp RPAR   &kp COLON      &kp PLUS   &kp MINUS  &kp FSLH   &kp ASTRK  &kp SQT
+        &kp RET      &none     &kp LBRC   &kp RBRC   &kp PIPE       &kp GRAVE  &kp TILDE  &kp LT     &kp GT     &kp BSLH
+        &kp LS(RET)  &none     &kp LPAR   &kp RPAR   &kp COLON      &kp PLUS   &kp MINUS  &kp FSLH   &kp ASTRK  &kp SQT
         &none        &none     &kp LBKT   &kp RBKT   &kp QMARK      &kp AMPS   &kp UNDER  &kp EQUAL  &kp DOT    &kp DQT
-        &trans     &trans         &kp RET    &trans
+        &trans       &trans    &kp RET    &trans
       >;
     };
 
@@ -289,19 +321,29 @@
       display-name = "Number";
       bindings = <
         &kp TAB     &kp N1            &kp N2            &kp N3           &kp PLUS            &kp HOME         &kp PG_DN         &kp PG_UP         &kp END             &kp LS(INS)
-        &kp DEL     &hml_s LALT N4    &hml_s LSHIFT N5   &hml_s LCTRL N6  &kp MINUS           &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT           &kp LC(INS)
+        &kp DEL     &hml_s LALT N4    &hml_s LSHIFT N5  &hml_s LCTRL N6  &kp MINUS           &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT           &kp LC(INS)
         &none       &kp N7            &kp N8            &kp N9           &kp N0              &none            &kp DOT           &kp COMMA         &kp BSPC            &none
-        &trans           &trans              &kp LCTRL           &kp LSHIFT
+        &trans      &trans            &kp LCTRL         &kp LSHIFT
       >;
     };
 
     function_layer {
       display-name = "Function";
       bindings = <
-        &trans  &kp F1     &kp F2     &kp F3     &none            &none       &kp F4        &kp F5        &kp F6        &trans
-        &trans  &kp F7     &kp F8     &kp F9     &none            &none       &kp F10       &kp F11       &kp F12       &trans
-        &sys_reset       &bootloader     &trans     &trans     &trans           &trans      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR
-        &trans     &trans           &sys_reset       &bootloader
+        &trans      &kp F1       &kp F2     &kp F3     &none            &none       &kp F4        &kp F5        &kp F6        &trans
+        &trans      &kp F7       &kp F8     &kp F9     &none            &none       &kp F10       &kp F11       &kp F12       &trans
+        &sys_reset  &bootloader  &trans     &trans     &trans           &trans      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR
+        &trans      &trans       &sys_reset       &bootloader
+      >;
+    };
+
+    windows_layer {
+      display-name = "Winodws";
+      bindings = <
+        &kp LG(L)  &none       &kp LG(E)  &kp LG(R)  &none     &none              &none              &kp LG(I)           &none               &kp LG(L)
+        &none      &vim_paste  &vim_copy  &none      &none     &kp LG(LC(LEFT))   &kp LG(LS(LEFT))   &kp LG(LS(RIGHT))   &kp LG(LC(RIGHT))   &kp LG(DOT)
+        &none      &none       &none      &none      &none     &none              &none              &none               &none               &none
+        &none      &none       &kp LG(SPACE)     &none
       >;
     };
   };
