@@ -189,8 +189,7 @@
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
       flavor = "hold-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <175>;
+      tapping-term-ms = <500>;
       bindings = <&mo>, <&kp>;
     };
   };
@@ -390,7 +389,7 @@
   combos {
     compatible = "zmk,combos";
     timeout-ms = <50>;
-    require-prior-idle-ms = <150>;
+    require-prior-idle-ms = <100>;
 
     // ESC on W+E
     combo_esc {
@@ -528,7 +527,7 @@
       bindings = <
         &kp LG(L)      &none       &kp LG(E)  &kp LG(R)  &none     &none              &none              &kp LG(I)           &none               &kp LG(L)
         &none          &vim_paste  &vim_copy  &none      &none     &kp LG(LC(LEFT))   &kp LG(LS(LEFT))   &kp LG(LS(RIGHT))   &kp LG(LC(RIGHT))   &kp LG(DOT)
-        &kp LG(LS(S))  &none       &none      &none      &none     &kp LG(LEFT)       &kp LG(DOWN)         &kp LG(UP)        &kp LG(RIGHT)       &none
+        &kp LG(LS(S))  &none       &none      &none      &none     &kp LG(LEFT)       &kp LG(DOWN)       &kp LG(UP)          &kp LG(RIGHT)       &none
         &none      &none       &kp LG(SPACE)     &none
       >;
     };
